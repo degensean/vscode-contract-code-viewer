@@ -4,6 +4,7 @@
   "description": "An easy-to-use extension to download and view smart contract codes",
   "version": "1.0.0",
   "publisher": "degensean",
+  "icon": "./images/icon.png",
   "engines": {
     "vscode": "^1.65.0"
   },
