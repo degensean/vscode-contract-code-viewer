@@ -5,6 +5,12 @@
   "version": "1.0.0",
   "publisher": "degensean",
   "icon": "./images/icon.png",
+  "license": "MIT",
+  "homepage": "https://github.com/degensean/vscode-contract-code-viewer/blob/main/README.md",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/degensean/vscode-contract-code-viewer.git"
+  },
   "engines": {
     "vscode": "^1.65.0"
   },
