@@ -19,3 +19,7 @@ Use the command `Enter URL to the contract on explorer`, input contract URL on b
 - Opening the folder after downloading.
 
 Please check [CHANGELOG.md](./CHANGELOG.md).
+
+## Acknowledgement
+
+Thank @DocRace for designing the icon.
