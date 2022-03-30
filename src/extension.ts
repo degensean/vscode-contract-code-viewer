@@ -37,7 +37,7 @@ export function activate(context: vscode.ExtensionContext) {
 				if (folderUri && folderUri[0]) {
 					const selectedFolder = folderUri[0].fsPath;
 					if (!fs.existsSync(selectedFolder)) {
-						vscode.window.showInformationMessage(`Directory ${selectedFolder} does not exist.`);
+						vscode.window.showErrorMessage(`Error: Directory ${selectedFolder} does not exist.`);
 						return;
 					}
 					else {
