@@ -4,7 +4,10 @@ Download contract codes from blockchain explorer and view them locally.
 
 ## Features
 
-Download and view contract codes.
+Download and view contract codes. The following two blockchain explorers are supported for downloading codes:
+- [https://etherscan.io](https://etherscan.io)
+- [https://polygonscan.com](https://polygonscan.com)
+- More explorers will be supported in the future
 
 ## Usage
 

@@ -2,7 +2,7 @@
   "name": "contract-code-viewer",
   "displayName": "Contract Code Viewer",
   "description": "An easy-to-use extension to download and view smart contract codes",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "publisher": "degensean",
   "icon": "images/icon.png",
   "license": "MIT",
@@ -25,6 +25,7 @@
     "commands": [
       {
         "command": "contractCodeViewer.inputExplorerUrl",
+        "category": "Contract Code Viewer",
         "title": "Enter URL to the contract on explorer"
       }
     ]
@@ -48,7 +49,6 @@
     "eslint": "^8.9.0",
     "glob": "^7.2.0",
     "mocha": "^9.2.1",
-    "node-html-parser": "^5.3.3",
     "typescript": "^4.5.5"
   },
   "dependencies": {
