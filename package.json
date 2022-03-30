@@ -1,6 +1,6 @@
 {
   "name": "contract-code-viewer",
-  "displayName": "contract-code-viewer",
+  "displayName": "Contract Code Viewer",
   "description": "An easy-to-use extension to download and view smart contract codes",
   "version": "1.0.0",
   "publisher": "degensean",
@@ -52,6 +52,7 @@
     "typescript": "^4.5.5"
   },
   "dependencies": {
-    "axios": "^0.26.1"
+    "axios": "^0.26.1",
+    "node-html-parser": "^5.3.3"
   }
 }
