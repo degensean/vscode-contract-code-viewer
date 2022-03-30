@@ -9,6 +9,8 @@ Download and view contract codes. The following two blockchain explorers are sup
 - [https://polygonscan.com](https://polygonscan.com)
 - More explorers will be supported in the future
 
+![Feature](images/feature1.gif)
+
 ## Usage
 
 Use the command `Enter URL to the contract on explorer`, input contract URL on blockchain explorer (etherscan and polygonscan), and then select a folder to save the contract files. Click "Open folder" to check the contract codes.
