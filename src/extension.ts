@@ -6,6 +6,8 @@ import { parse } from "node-html-parser";
 import * as path from 'path';
 import * as fs from 'fs';
 
+const dnToChain: {[key: string]: string} = require('./dnToChain.json');
+
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
@@ -26,8 +28,19 @@ export function activate(context: vscode.ExtensionContext) {
 			if (typeof url === 'undefined') {
 				return;
 			}
-			const urlRegPattern = /^(https:\/\/(etherscan\.io|polygonscan.com)\/address\/(0x[a-zA-Z0-9]{40}))(#[a-zA-Z]*)?/gs;
+			let domainNames = Object.keys(dnToChain);
+			const domainNameRegP = domainNames.join('|').replace('.', '\\.'); // etherscan\\.io|polygonscan\\.com
+			const urlRegPattern = new RegExp(`^((https?:\\/\\/)?(${domainNameRegP})\\/(address|token)\\/(0x[a-zA-Z0-9]{40}))(#[a-zA-Z]*)?`, 'g');
 			const urlMatches = urlRegPattern.exec(url);
+			// For example, if `url` is https://bscscan.com/address/0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d#code,
+			// console.log(urlMatches) will print:
+			// 0:'https://bscscan.com/address/0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d#code'
+			// 1:'https://bscscan.com/address/0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d'
+			// 2:'https://'
+			// 3:'bscscan.com'
+			// 4:'address'
+			// 5:'0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d'
+			// 6:'#code'
 			if (urlMatches === null) {
 				vscode.window.showErrorMessage('Error: Input URL is invalid.');
 				return;
@@ -53,24 +66,24 @@ export function activate(context: vscode.ExtensionContext) {
 
 
 export function downloadCode(urlMatches: Array<string>, selectedFolder: string) {
-	
-	const addressUrl = urlMatches[1];
-	const domainName = urlMatches[2];
-	const contractAddr = urlMatches[3];
-
+	const domainName : string = urlMatches[3];
+	const contractAddr = urlMatches[5];
 	const axiosInstance = axios.create();
-	const reqUrl = `${addressUrl}#code`;
+	const addressUrl = `https://${domainName}/address/${contractAddr}`;
+	const reqUrl = `${addressUrl}/#code`;
 	axiosInstance.get(reqUrl).then((res) => {
 		const root = parse(res.data);
 		const contractNameNode = root.querySelector("div.row.mx-gutters-lg-1.mb-5");
 		if (contractNameNode === null) {
             vscode.window.showErrorMessage('Error: Contract is not verified.');
             return;
-        } 
+        }
 		const dividcode = root.getElementById("dividcode");
 		const fileTitles = dividcode.querySelectorAll(".text-secondary");
-		const contractNameList = contractNameNode!.childNodes[1].childNodes[1].text.split('\n').filter(element => {
-			return element !== '';
+		const contractNameList = contractNameNode!.childNodes[1].childNodes[1].text.split('\n').map(x => {
+			return x.trim();
+		}).filter(y => {
+			return y !== '';
 		});
 		const contractName = contractNameList[contractNameList.length - 1];
 		const dir = path.join(selectedFolder, contractName);
@@ -93,7 +106,7 @@ export function downloadCode(urlMatches: Array<string>, selectedFolder: string) 
 			}
 		}
 		else {
-			const regexPattern = /File \d+ of \d+ : \w+.sol/gs;
+			const regexPattern = /File \d+ of \d+ : \w+\.sol/g;
 			if (!fs.existsSync(dir)){
 				fs.mkdirSync(dir);
 			}
@@ -114,17 +127,11 @@ export function downloadCode(urlMatches: Array<string>, selectedFolder: string) 
 			});
 		}
 
-		let network: string = "Unknown";
-		if (domainName === 'etherscan.io') {
-			network = "Ethereum Main";
-		} 
-		else if (domainName === 'polygonscan.com') {
-			network = "Polygon Main";
-		}
+		let blockchain = dnToChain[domainName];
 		const contractInfo = {
 			"contractAddress": contractAddr,
-			"network": network,
-			"explorerURL": addressUrl
+			"blockchain": blockchain,
+			"explorerUrl": addressUrl
 		};
 		fs.writeFile(path.join(dir, 'contractInfo.json'), JSON.stringify(contractInfo, null, 4), err => {
 			if (err) {

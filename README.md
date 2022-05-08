@@ -7,9 +7,13 @@ Download contract codes from blockchain explorer and view them locally.
 Download and view contract codes. The following two blockchain explorers are supported for downloading codes:
 - [https://etherscan.io](https://etherscan.io)
 - [https://polygonscan.com](https://polygonscan.com)
-- More explorers will be supported in the future
+- [https://bscscan.com](https://bscscan.com)
+- [https://ftmscan.com](https://ftmscan.com)
+- [https://snowtrace.io](https://snowtrace.io)
 
 ![Feature](images/feature1.gif)
+
+Let us know if you want more explorers become supported.
 
 ## Usage
 
@@ -17,11 +21,10 @@ Use the command `Contract Code Viewer: Enter URL to the contract on explorer`, i
 
 ## Release Notes
 
-### [1.0.0] - 2022-03-28
+## [1.1.4] - 2022-05-08
 
 ### Added
-- Downloading contract codes from blockchain explorer (etherscan and polygonscan).
-- Opening the folder after downloading.
+- The extension can now download contract code from [bscscan.com](https://bscscan.com), [ftmscan.com](https://ftmscan.com), and [snowtrace.io](https://snowtrace.io).
 
 Please check [CHANGELOG.md](./CHANGELOG.md).
 
