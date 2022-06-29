@@ -21,12 +21,11 @@ Use the command `Contract Code Viewer: Enter URL to the contract on explorer`, i
 
 ## Release Notes
 
-## [1.1.4] - 2022-05-08
+## [1.1.6] - 2022-06-29
 
 ### Added
-- The extension can now download contract code from [bscscan.com](https://bscscan.com), [ftmscan.com](https://ftmscan.com), and [snowtrace.io](https://snowtrace.io).
 
-Please check [CHANGELOG.md](./CHANGELOG.md).
+- Error handling.
 
 ## Acknowledgement
 

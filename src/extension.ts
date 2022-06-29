@@ -75,7 +75,7 @@ export function downloadCode(urlMatches: Array<string>, selectedFolder: string) 
 		const root = parse(res.data);
 		const contractNameNode = root.querySelector("div.row.mx-gutters-lg-1.mb-5");
 		if (contractNameNode === null) {
-            vscode.window.showErrorMessage('Error: Contract is not verified.');
+			vscode.window.showErrorMessage('Error: Contract is not verified.');
             return;
         }
 		const dividcode = root.getElementById("dividcode");
@@ -126,7 +126,6 @@ export function downloadCode(urlMatches: Array<string>, selectedFolder: string) 
 				}
 			});
 		}
-
 		let blockchain = dnToChain[domainName];
 		const contractInfo = {
 			"contractAddress": contractAddr,
@@ -147,8 +146,26 @@ export function downloadCode(urlMatches: Array<string>, selectedFolder: string) 
 			}
 		});
 	})
-	.catch( err => {
-		vscode.window.showErrorMessage(err);
+	.catch( error => {
+		if (error.response) {
+			// The request was made and the server responded with a status code
+			// that falls out of the range of 2xx
+			console.log(error.response.data);
+			console.log('[Error] Response status', error.response.status);
+			console.log(error.response.headers);
+			vscode.window.showErrorMessage(`[Error] Response status code: ${error.response.status}`);
+		  } else if (error.request) {
+			// The request was made but no response was received
+			// `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+			// http.ClientRequest in node.js
+			console.log(error.request);
+			vscode.window.showErrorMessage(`[Error] No response was received`);
+		} else {
+			// Something happened in setting up the request that triggered an Error
+			console.log('Error', error.message);
+			vscode.window.showErrorMessage(`[Error] ${error.message}`);
+		  }
+		  console.log(error.config);
 		return;
 	});
 }

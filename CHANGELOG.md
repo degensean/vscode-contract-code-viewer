@@ -1,5 +1,9 @@
 # Change Log
 
+## [1.1.6] - 2022-06-29
+### Added
+- Error handling.
+
 ## [1.1.4] - 2022-05-08
 ### Added
 - The extension can now download contract code from [bscscan.com](https://bscscan.com), [ftmscan.com](https://ftmscan.com), and [snowtrace.io](https://snowtrace.io).
