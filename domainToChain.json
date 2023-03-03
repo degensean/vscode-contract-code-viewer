@@ -3,5 +3,7 @@
     "polygonscan.com": "Polygon",
     "bscscan.com": "BNB Smart Chain",
     "ftmscan.com": "Fantom",
-    "snowtrace.io": "Avalanche C-Chain"
+    "snowtrace.io": "Avalanche C-Chain",
+    "arbiscan.io": "Arbitrum",
+    "optimistic.etherscan.io": "Optimism"
 }

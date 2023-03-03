@@ -6,11 +6,11 @@ import { parse } from "node-html-parser";
 import * as path from 'path';
 import * as fs from 'fs';
 
-const dnToChain: {[key: string]: string} = require('./dnToChain.json');
+const domainToChain: {[key: string]: string} = require('../domainToChain.json');
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
-export function activate(context: vscode.ExtensionContext) {
+export function activate(context: vscode.ExtensionContext): void {
 
 	let getContractCodes = vscode.commands.registerCommand('contractCodeViewer.inputExplorerUrl', () => {
 		const inputBoxOptions1 = {
@@ -28,7 +28,7 @@ export function activate(context: vscode.ExtensionContext) {
 			if (typeof url === 'undefined') {
 				return;
 			}
-			let domainNames = Object.keys(dnToChain);
+			let domainNames = Object.keys(domainToChain);
 			const domainNameRegP = domainNames.join('|').replace('.', '\\.'); // etherscan\\.io|polygonscan\\.com
 			const urlRegPattern = new RegExp(`^((https?:\\/\\/)?(${domainNameRegP})\\/(address|token)\\/(0x[a-zA-Z0-9]{40}))(#[a-zA-Z]*)?`, 'g');
 			const urlMatches = urlRegPattern.exec(url);
@@ -78,8 +78,12 @@ export function downloadCode(urlMatches: Array<string>, selectedFolder: string) 
 			vscode.window.showErrorMessage('Error: Contract is not verified.');
             return;
         }
-		const dividcode = root.getElementById("dividcode");
-		const fileTitles = dividcode.querySelectorAll(".text-secondary");
+		const fileTitlesSelector = domainName === 'etherscan.io' ? '.text-muted' : '.text-secondary';
+		const dividcodeElem = root.getElementById("dividcode") ?? root.getElementById("code");
+		const fileTitles = dividcodeElem.querySelectorAll(fileTitlesSelector);
+		fileTitles.forEach(fileTitle => {
+			console.log(fileTitle);
+		});
 		const contractNameList = contractNameNode!.childNodes[1].childNodes[1].text.split('\n').map(x => {
 			return x.trim();
 		}).filter(y => {
@@ -106,7 +110,7 @@ export function downloadCode(urlMatches: Array<string>, selectedFolder: string) 
 			}
 		}
 		else {
-			const regexPattern = /File \d+ of \d+ : \w+\.sol/g;
+			const regexPattern = /File \d+ of \d+ : \w+\.sol/;
 			if (!fs.existsSync(dir)){
 				fs.mkdirSync(dir);
 			}
@@ -126,7 +130,7 @@ export function downloadCode(urlMatches: Array<string>, selectedFolder: string) 
 				}
 			});
 		}
-		let blockchain = dnToChain[domainName];
+		let blockchain = domainToChain[domainName];
 		const contractInfo = {
 			"contractAddress": contractAddr,
 			"blockchain": blockchain,
