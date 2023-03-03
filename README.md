@@ -35,10 +35,6 @@ To use Contract Code Viewer, follow these steps:
 
 ## Release Notes
 
-### [1.1.7] - 2023-03-03
-#### Fixed
-- An issue with bscscan.
-
 ### [1.1.6] - 2023-03-03
 #### New Features
 - The extension can now download contract code from [arbiscan.io](https://arbiscan.io) and [optimistic.etherscan.io](https://optimistic.etherscan.io).
