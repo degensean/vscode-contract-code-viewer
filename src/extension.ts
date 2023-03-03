@@ -81,9 +81,6 @@ export function downloadCode(urlMatches: Array<string>, selectedFolder: string) 
 		const fileTitlesSelector = domainName === 'etherscan.io' ? '.text-muted' : '.text-secondary';
 		const dividcodeElem = root.getElementById("dividcode") ?? root.getElementById("code");
 		const fileTitles = dividcodeElem.querySelectorAll(fileTitlesSelector);
-		fileTitles.forEach(fileTitle => {
-			console.log(fileTitle);
-		});
 		const contractNameList = contractNameNode!.childNodes[1].childNodes[1].text.split('\n').map(x => {
 			return x.trim();
 		}).filter(y => {
@@ -110,7 +107,12 @@ export function downloadCode(urlMatches: Array<string>, selectedFolder: string) 
 			}
 		}
 		else {
-			const regexPattern = /File \d+ of \d+ : \w+\.sol/;
+			// \s: any whitespace character (space, tab, newline, etc.) 
+			// \w: stands for any alphanumeric character (a-z, A-Z, 0-9, _)
+			// ?: means the previous character is optional
+			// +: means the previous character can appear one or more times
+			// \d: stands for any digit (0-9)
+			const regexPattern = /File \d+ of \d+\s?: \w+\.sol/;
 			if (!fs.existsSync(dir)){
 				fs.mkdirSync(dir);
 			}

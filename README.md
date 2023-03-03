@@ -6,7 +6,7 @@ Contract Code Viewer is a VS Code extension that allows you to download contract
 
 ![Feature](images/feature1.gif)
 
-Contract Code Viewer supports downloading contract codes from the following blockchain explorers (as of 2023-03-02):
+Contract Code Viewer supports downloading contract codes from the following blockchain explorers (as of 2023-03-03):
 
 | Blockchain Explorer                                        | Availability |
 |------------------------------------------------------------|:------------:|
@@ -35,7 +35,11 @@ To use Contract Code Viewer, follow these steps:
 
 ## Release Notes
 
-### [1.1.6] - 2023-03-02
+### [1.1.7] - 2023-03-03
+#### Fixed
+- An issue with bscscan.
+
+### [1.1.6] - 2023-03-03
 #### New Features
 - The extension can now download contract code from [arbiscan.io](https://arbiscan.io) and [optimistic.etherscan.io](https://optimistic.etherscan.io).
 #### Fixed
