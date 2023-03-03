@@ -1,8 +1,9 @@
 # Changelog
 
-### [1.1.7] - 2023-03-03
+### [1.1.9] - 2023-03-03
 #### Fixed
 - An issue with bscscan.
+- Other bugs
 
 ### [1.1.6] - 2023-03-03
 #### New Features
